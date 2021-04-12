@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Camera
+    // Cámara.
     public Transform cam;
            float vMouse;
            float hMouse;
@@ -12,27 +12,25 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalSpeed;
     public float verticalSpeed;
 
-    // Movement
+    // Movimiento.
     public CharacterController controller;
     public float   playerSpeed;
            float   x;
            float   z;
            Vector3 move;
 
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
         LookMouse();
         PlayerMove();
     }
 
-    void LookMouse()
+    void LookMouse() // Mueve la cámara con el mouse.
     {
         hMouse = Input.GetAxis("Mouse X") * horizontalSpeed * Time.deltaTime;
         vMouse = Input.GetAxis("Mouse Y") * verticalSpeed   * Time.deltaTime;
@@ -43,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         cam.localRotation = Quaternion.Euler(yCamRotation, 0f, 0f);
     }
 
-    void PlayerMove()
+    void PlayerMove() // Mueve al personaje.
     {
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
