@@ -8,11 +8,13 @@ public class PlayerActions : MonoBehaviour
            RaycastHit hit;
     public float      rayLength;
     public bool       isTouchingKeyObject;
+    float             isTouchingKeyObjectTimer;
 
     void Start()
     {
-        rayLength           = 3f;
-        isTouchingKeyObject = false;
+        rayLength                = 3f;
+        isTouchingKeyObject      = false;
+        isTouchingKeyObjectTimer = 0f;
     }
 
     void Update()
@@ -22,6 +24,13 @@ public class PlayerActions : MonoBehaviour
 
         Physics.Raycast(cam.position, cam.forward, out hit, 0f);
 
+        isTouchingKeyObjectTimer -= isTouchingKeyObjectTimer;
+
+        if(isTouchingKeyObjectTimer <= 0)
+        {
+            isTouchingKeyObject = false;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Debug.DrawRay(cam.position, cam.forward * rayLength, Color.red);
@@ -30,10 +39,19 @@ public class PlayerActions : MonoBehaviour
             {
                 if (hit.collider.tag == "KeyObject")
 
+                {
                     isTouchingKeyObject = true;
+                    Debug.Log("Touching");
+                    isTouchingKeyObjectTimer = 1f;
+                }
 
-                    Debug.Log("Activar objeto");
+                else
+                {
+                    isTouchingKeyObject = false;
+                    Debug.Log("NOTTouching");
+                }
             }
+            
         }
 
         // Fin del chequeo.
